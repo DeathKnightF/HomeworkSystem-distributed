@@ -21,7 +21,7 @@
 		<div class="panel">
 			<div class="content login">
 				<div class="switch">
-					<span id="login" class='active'> 登 陆 </span><span>/</span><span id="signup" class='active'> 注 册 </span>
+					<span id="login" class='active'> 登 录 </span><span>/</span><span id="signup" class='active'> 注 册 </span>
 				</div>
 				<form:form action="login" modelAttribute="person" method="post">
 				<!-- <input type="hidden" name="_method" value="put"> -->

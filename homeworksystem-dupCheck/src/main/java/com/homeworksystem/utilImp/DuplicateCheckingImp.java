@@ -95,7 +95,7 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 		 */
 		private void check(Homework h1,Homework h2) {
 			int longestCommonSubsequence = longestCommonSubsequence(h1.getHomework(), h2.getHomework());
-			int rate = longestCommonSubsequence*100/(h1.getHomework().length()+h2.getHomework().length());
+			int rate = longestCommonSubsequence*200/(h1.getHomework().length()+h2.getHomework().length());
 			h1.setRepeatability(Math.max(h1.getRepeatability(), rate));
 			h2.setRepeatability(Math.max(h2.getRepeatability(), rate));
 		}
@@ -115,7 +115,5 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 	                    dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
 	        return dp[text1.length()][text2.length()];
 	    }
-		
 	}
-
 }
