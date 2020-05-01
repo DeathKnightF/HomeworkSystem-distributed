@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 	/**
 	 * 获取Service服务
 	 */
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	private HomeworkService homeworkService;
 	/**
 	 * 初始化
