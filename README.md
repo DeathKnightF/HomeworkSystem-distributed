@@ -114,8 +114,8 @@ Maven
 1、确保每台电脑都有导入api项目，其他三个项目只需要选择一个
 
 2、步骤基本与单机一致，不同：多机在启动程序前需要修改
-	/com.homeworksystem-dupCheck/src/main/resources/provider.xml
-	/homeworkSystem-web/src/main/resources/consumer.xml
+	/com.homeworksystem-dupCheck/src/main/resources/provider.xml和
+	/homeworkSystem-web/src/main/resources/consumer.xml和
 	/homeworksystem-service/src/main/resources/ApplicationContext.xml
 	中<dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>  IP地址改为zookeeper所在的IP地址
 
