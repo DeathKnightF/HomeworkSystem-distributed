@@ -9,7 +9,7 @@
   <!-- needed for ContextLoaderListener -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:consumer.xml</param-value>
+		<param-value>classpath:spring-dubbo.xml</param-value>
 	</context-param>
 
 	<!-- Bootstraps the root web application context before servlet initialization -->

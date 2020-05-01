@@ -3,6 +3,7 @@ package com.homeworksystem.controller;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,27 +30,27 @@ public class StudentController {
 	/**
 	 * 这个类提供的方法用于增删改查数据库中课程相关的数据。
 	 */
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	CourseService courseService;
 	/**
 	 * 这个类提供的方法用于增删改查数据库中选课相关的数据。
 	 */
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	CurriculaVariableService curriculaVariableService;
 	/**
 	 * 这个类提供的方法用于增删改查数据库中问题相关的数据。
 	 */
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	QuestionService questionService;
 	/**
 	 * 这个类提供的方法用于增删改查数据库中作业相关的数据。
 	 */
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	HomeworkService homeworkService;
 	/**
 	 * 查重服务
 	 */
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	DuplicateChecking duplicateChecking;
 	/**
 	 * 跳转到学生主页面

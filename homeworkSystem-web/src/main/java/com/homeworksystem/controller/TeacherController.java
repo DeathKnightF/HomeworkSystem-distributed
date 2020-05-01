@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,17 +29,17 @@ import com.homeworksystem.util.DuplicateChecking;
 @Controller
 public class TeacherController {
 	
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	CourseService courseService;
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	CurriculaVariableService curriculaVariableService;
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	QuestionService questionService;
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	HomeworkService homeworkService;
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	TeacherService teacherService;
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	DuplicateChecking duplicateChecking;
 	/**
 	 * 前往教师主页面

@@ -7,21 +7,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd
 		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
-	<!-- 1、指定当前服务的名字 -->
-	<dubbo:application name="homeworkSystem-duplicateChecking"></dubbo:application>
-	
-	<dubbo:registry address="zookeeper://127.0.0.1:2181?client=curator"></dubbo:registry>
-	
-	<dubbo:reference interface="com.homeworksystem.service.HomeworkService" id="homeworkService"></dubbo:reference>
-	
-	<!-- 3、指定通信规则 -->
-	<dubbo:protocol name="dubbo" port="20081"></dubbo:protocol>
 
-	<context:component-scan base-package="com.homeworksystem"></context:component-scan>
 	
-	<dubbo:consumer check="false"></dubbo:consumer>
-	
-	<dubbo:service interface="com.homeworksystem.util.DuplicateChecking" ref="duplicateCheckingImp"></dubbo:service>
-
-
+	<!-- <context:component-scan base-package="com.homeworksystem"></context:component-scan> -->
 </beans>

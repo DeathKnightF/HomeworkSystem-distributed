@@ -3,9 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
 	<context:component-scan base-package="com.homeworksystem"></context:component-scan>
 	
@@ -21,5 +24,22 @@
 	<mvc:resources location="/WEB-INF/pages/css/" mapping="/css/**"/>
 	<mvc:resources location="/WEB-INF/pages/jquery/" mapping="/jquery/**"/> 
 	
+	<dubbo:application name="homeworkSystem-web"></dubbo:application>
 	
+	<dubbo:registry address="zookeeper://127.0.0.1:2181?client=curator"></dubbo:registry>
+	<!-- 配置当前消费者的统一规则 -->
+	<!-- 当前所有服务启动都不检查 -->
+	<!-- 超时不设置默认1000  reference里面可以配置method超时属性，精确优先（方法>接口>全局）、如果级别一样消费者优先-->
+	<!-- 超时后的重试次数，不包括第一次 -->
+	<dubbo:consumer check="false" timeout="5000" retries="2"></dubbo:consumer>
+	
+	<dubbo:reference interface="com.homeworksystem.service.CourseService" id="courseService"></dubbo:reference>
+	<dubbo:reference interface="com.homeworksystem.service.CurriculaVariableService" id="curriculaVariableService"></dubbo:reference>
+	<dubbo:reference interface="com.homeworksystem.service.HomeworkService" id="homeworkService"></dubbo:reference>
+	<dubbo:reference interface="com.homeworksystem.service.QuestionService" id="questionService"></dubbo:reference>
+	<dubbo:reference interface="com.homeworksystem.service.StudentService" id="studentService"></dubbo:reference>
+	<dubbo:reference interface="com.homeworksystem.service.TeacherService" id="teacherService"></dubbo:reference>
+	<dubbo:reference interface="com.homeworksystem.util.DuplicateChecking" id="duplicateChecking"></dubbo:reference>
+	
+	<dubbo:annotation package="com.homeworksystem"/>
 </beans>

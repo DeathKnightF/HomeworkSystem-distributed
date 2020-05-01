@@ -2,6 +2,8 @@ package com.homeworksystem.controller;
 
 
 import javax.validation.Valid;
+
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -26,12 +28,12 @@ public class CentralController {
 	/**
 	 * studentService用于对数据库进行增删改查学生信息
 	 */
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	StudentService studentService;
 	/**
 	 * studentService用于对数据库进行增删改查教师信息
 	 */
-	@Autowired
+	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	TeacherService teacherService;
 	/**
 	 * 前往登陆界面
