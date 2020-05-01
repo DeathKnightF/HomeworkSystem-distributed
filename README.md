@@ -120,6 +120,7 @@ Maven
 	中<dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>  IP地址改为zookeeper所在的IP地址
 
 3、其他的部分一致
+4、如果需要启动多台service服务器，需更改service配置文件中的端口。/homeworksystem-service/src/main/resources/ApplicationContext.xml
 
 
 
