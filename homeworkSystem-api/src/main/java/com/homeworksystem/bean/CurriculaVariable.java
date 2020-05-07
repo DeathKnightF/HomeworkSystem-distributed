@@ -1,7 +1,12 @@
 package com.homeworksystem.bean;
 
 import java.io.Serializable;
-
+/**
+ * 选课信息
+ * @param studentId 学号
+ * @param courseId 课程号
+ *
+ */
 public class CurriculaVariable implements Serializable{
 	
 	

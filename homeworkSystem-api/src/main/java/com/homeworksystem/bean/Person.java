@@ -7,14 +7,19 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 /**
- * 
+ * 人类
  * 兼容student类和teacher类
  * Person可以转换成student，也可以转换成teacher
  *
+ *@param type类型(学生或者老师)
+ *@param id学号或者工号
+ *@param password密码
+ *@param userName用户名
+ *@param gender性别
  */
 public class Person implements Serializable{
 	/**
-	 * 
+	 * 序列号
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -22,7 +27,9 @@ public class Person implements Serializable{
 	 * 区分学生和老师
 	 */
 	private String type;
-	
+	/**
+	 * 学号或者工号（作为登陆的账号）
+	 */
 	@NotNull
 	private String id;
 
@@ -31,9 +38,13 @@ public class Person implements Serializable{
      */
 	@Length(min=6,max=18)
     private String passWord;
-
+	/**
+	 * 用户姓名
+	 */
     private String userName;
-
+    /**
+     * 性别
+     */
     private String gender;
 
 
@@ -124,14 +135,14 @@ public class Person implements Serializable{
 	}
     /**
      * 将person转换成student对象
-     * @return
+     * @return student
      */
     public Student convertToStudent() {
     	return new Student(id, passWord, userName, gender);
     }
     /**
      * 将person转换成Teacher对象
-     * @return
+     * @return teacher
      */
     public Teacher convertToTeacher() {
     	return new Teacher(id, passWord, userName, gender);

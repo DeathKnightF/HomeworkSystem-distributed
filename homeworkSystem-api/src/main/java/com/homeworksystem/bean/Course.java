@@ -1,27 +1,45 @@
 package com.homeworksystem.bean;
 
 import java.io.Serializable;
-
+/**
+ * 课程类
+ *包括属性：
+ *@param courseId课程号
+ *@param teacherId教师工号
+ *@param courseName课程名
+ *@param teacherName教师名
+ *@param num选课人数
+ */
 public class Course implements Serializable{
 
     /**
-	 * 
+	 * 序列号
 	 */
 	private static final long serialVersionUID = 1L;
 
-
+	/**
+	 * 课程号
+	 */
 	private Integer courseId;
 
-
+	/**
+	 * 教师工号
+	 */
     private String teacherId;
 
-
+    /**
+     * 课程名
+     */
     private String courseName;
 
-    
+    /**
+     * 教师名
+     */
     private String teacherName;
     
-    
+    /**
+     * 选课人数
+     */
     private Integer num;
     
     

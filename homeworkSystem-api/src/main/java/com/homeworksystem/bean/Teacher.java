@@ -1,24 +1,38 @@
 package com.homeworksystem.bean;
 
 import java.io.Serializable;
-
+/**
+ * 教师类
+ *@param teacherId 工号
+ *@param passWord MySQL password是关键字，所以数据库中密码用pass_word表示，对应驼峰命名是passWord 
+ *@param userName 姓名
+ *@param gender 性别
+ */
 public class Teacher implements Serializable{
     
     /**
-	 * 
+	 * 序列号
 	 */
 	private static final long serialVersionUID = 1L;
 
-
+	/**
+	 * 教师工号
+	 */
 	private String teacherId;
 
-    
+    /**
+     * MySQL password是关键字，所以数据库中密码用pass_word表示，对应驼峰命名是passWord 
+     */
     private String passWord;
 
-   
+   /**
+    * 姓名
+    */
     private String userName;
 
-    
+    /**
+     * 性别
+     */
     private String gender;
 
     public Teacher() {

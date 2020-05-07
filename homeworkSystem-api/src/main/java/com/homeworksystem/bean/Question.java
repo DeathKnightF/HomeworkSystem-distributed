@@ -2,25 +2,44 @@ package com.homeworksystem.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-
+/**
+ * 问题类
+ *@param questionId 问题号
+ *@param courseId 课程号
+ *@param question 问题描述
+ *@param outline 问题概述（学生端、教师端查看问题时，不是显示题目的全部内容，而是显示部分内容，一般是问题描述的前10个字符）
+ *@param courseName 课程名
+ *@param score 成绩（用于学生端显示该问题的成绩，教师端这个属性没有用）
+ *@param deadline 截止时间，默认值 2038-1-1 0:0:0
+ *@param isLate 是否过了截止日期
+ *@param num 已经提交作业的学生人数
+ *@param dupCheck 教师是否启动查重
+ */
 public class Question implements Serializable{
     
     /**
-	 * 
+	 * 序列号
 	 */
 	private static final long serialVersionUID = 1L;
 
-
+	/**
+	 * 问题号
+	 */
 	private Integer questionId;
 
-    
+    /**
+     * 课程号
+     */
     private Integer courseId;
 
-   
+    /**
+     * 问题描述
+     */
     private String question;
 
     /**
      * 问题概述
+     * （学生端、教师端查看问题时，不是显示题目的全部内容，而是显示部分内容，一般是问题描述的前10个字符）
      */
     private String outline;
     
@@ -30,7 +49,7 @@ public class Question implements Serializable{
     private String courseName;
     
     /**
-     * 成绩（是学生的成绩）
+     * 成绩（用于学生端显示该问题的成绩，教师端这个属性没有用）
      */
     private String score;
     
@@ -48,7 +67,7 @@ public class Question implements Serializable{
      */
     private Integer num;
     /**
-     * 是否启动查重
+     * 教师是否启动查重
      */
     private Integer dupCheck;
     public Question() {

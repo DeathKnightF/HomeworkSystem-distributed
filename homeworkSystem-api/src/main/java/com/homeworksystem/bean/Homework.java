@@ -1,27 +1,46 @@
 package com.homeworksystem.bean;
 
 import java.io.Serializable;
-
+/**
+ * 作业信息
+ * @param studentId 学号
+ * @param questionId 问题号
+ * @param homework 作业内容
+ * @param score 成绩
+ * @param userName 学生姓名
+ * @param repeatability 重复度
+ *
+ */
 public class Homework implements Serializable{
 
     /**
-	 * 
+	 * 序列号
 	 */
 	private static final long serialVersionUID = 1L;
 
-
+	/**
+	 * 学号
+	 */
 	private String studentId;
 
-
+	/**
+	 * 问题号
+	 */
     private Integer questionId;
 
- 
+    /**
+     * 作业内容
+     */
     private String homework;
 
-    
+    /**
+     * 成绩
+     */
     private Integer score;
     
-    
+    /**
+     * 姓名
+     */
     private String userName;
     
     /**
@@ -88,27 +107,17 @@ public class Homework implements Serializable{
 		return score;
 	}
 
-
 	public void setScore(Integer score) {
 		this.score = score;
 	}
-
-
-
 
 	public String getUserName() {
 		return userName;
 	}
 
-
-
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
-
-	
 
 	public Integer getRepeatability() {
 		return repeatability;
