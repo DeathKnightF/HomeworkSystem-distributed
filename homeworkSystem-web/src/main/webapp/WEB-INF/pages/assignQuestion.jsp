@@ -10,24 +10,40 @@
 <%
 	pageContext.setAttribute("ctp", request.getContextPath());
 %>
+<link rel="stylesheet" type="text/css" href="${ctp}/css/assignQuestion.css">
 </head>
 <body>
 <a href="${ctp }/mainMenu/teacher/myCourse/${teacherId}">返回主界面</a>
-<h1>选这门课的学生</h1>
-<table border="1" >
-	<tr>
-		<th>学号</th>
-		<th>姓名</th>
-		<th>性别</th>
-	</tr>
-	<c:forEach items="${requestScope.allTheStudents}" var="stu">
-		<tr>
-			<td>${stu.studentId}</td>
-			<td>${stu.userName }</td>
-			<td>${stu.gender }</td>
-		</tr>
-	</c:forEach>
-</table><br/><br/>
+<div class="left" >
+<h1>布置作业</h1>
+<form action="${ctp }/newQuestion/${teacherId}/${courseId}" method="post">
+	作业题目：
+	<textarea name="homework" rows="15" cols="60" wrap="soft"></textarea><br/>
+	截止时间：<br/><select	 name="year">
+				<c:forEach items="${year}" var="y">
+					<option value="${y }">${y }</option>
+				</c:forEach>
+			</select>年
+			<select	 name="month">
+				<c:forEach items="${month}" var="m">
+					<option value="${m }">${m }</option>
+				</c:forEach>
+			</select>月
+			<select	 name="day">
+				<c:forEach items="${day}" var="d">
+					<option value="${d }">${d }</option>
+				</c:forEach>
+			</select>日
+			<select	 name="hour">
+				<c:forEach items="${hour}" var="h">
+					<option value="${h }">${h }</option>
+				</c:forEach>
+			</select>时
+	<button onclick="this.form.submit()">提交</button>
+</form>
+</div>
+<br/><br/>
+<div  class="right">
 <h1>我布置过的作业</h1>
 <table border="1" >
 	<tr>
@@ -76,32 +92,22 @@
 		</tr>
 	</c:forEach>
 </table>
-
+</div>
 <br/><br/>
-<h2>布置作业</h2>
-<form action="${ctp }/newQuestion/${teacherId}/${courseId}" method="post">
-	作业题目：<input name="questionContext"><br/>
-	截止时间：<select	 name="year">
-				<c:forEach items="${year}" var="y">
-					<option value="${y }">${y }</option>
-				</c:forEach>
-			</select>年
-			<select	 name="month">
-				<c:forEach items="${month}" var="m">
-					<option value="${m }">${m }</option>
-				</c:forEach>
-			</select>月
-			<select	 name="day">
-				<c:forEach items="${day}" var="d">
-					<option value="${d }">${d }</option>
-				</c:forEach>
-			</select>日
-			<select	 name="hour">
-				<c:forEach items="${hour}" var="h">
-					<option value="${h }">${h }</option>
-				</c:forEach>
-			</select>时
-	<button onclick="this.form.submit()">提交</button>
-</form>
+<h1>选这门课的学生</h1>
+<table border="1" >
+	<tr>
+		<th>学号</th>
+		<th>姓名</th>
+		<th>性别</th>
+	</tr>
+	<c:forEach items="${requestScope.allTheStudents}" var="stu">
+		<tr>
+			<td>${stu.studentId}</td>
+			<td>${stu.userName }</td>
+			<td>${stu.gender }</td>
+		</tr>
+	</c:forEach>
+</table>
 </body>
 </html>
