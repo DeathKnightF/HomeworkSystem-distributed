@@ -10,18 +10,37 @@ import java.util.List;
  *
  */
 public interface TeacherMapper {
-    
+    /**
+     * 通过主键删除
+     * @param teacherId
+     * @return
+     */
     int deleteByPrimaryKey(String teacherId);
 
-    
+    /**
+     * 插入
+     * @param record
+     * @return
+     */
     int insert(Teacher record);
 
-   
+    /**
+     * 通过主键查找
+     * @param teacherId
+     * @return
+     */
     Teacher selectByPrimaryKey(String teacherId);
 
-    
+    /**
+     * 查找全部
+     * @return
+     */
     List<Teacher> selectAll();
 
-    
+    /**
+     * 通过主键更新
+     * @param record
+     * @return
+     */
     int updateByPrimaryKey(Teacher record);
 }

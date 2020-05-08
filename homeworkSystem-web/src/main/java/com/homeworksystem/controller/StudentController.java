@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -138,7 +137,9 @@ public class StudentController {
 		mv.addObject("questionId", question.getQuestionId());
 		mv.addObject("questionContext", question.getQuestion());
 		String context = homeworkService.selectHomeworkContext(questionId, studentId);
+		//如果学生之前提交过作业，则显示作业内容
 		mv.addObject("homeworkContext", context);
+		//是否截止
 		mv.addObject("isLate", new Timestamp(System.currentTimeMillis()).after(question.getDeadline()));
 		return mv;
 	}

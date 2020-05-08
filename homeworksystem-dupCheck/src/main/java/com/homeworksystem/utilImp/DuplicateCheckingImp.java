@@ -6,7 +6,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.homeworksystem.bean.Homework;
@@ -43,6 +42,10 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 		waitList=new ConcurrentLinkedQueue<Integer>();
 		threadPool=Executors.newFixedThreadPool(3);
 	}
+	/**
+	 * 实现接口方法
+	 */
+	@Override
 	public void check(Integer id) {
 		waitList.add(id);
 		System.out.println("问题号："+id+"进入等待");
@@ -68,7 +71,7 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 	/**
 	 * 
 	 *	任务
-	 *	传入作业，结果写回数据库
+	 *	传入作业，重复度写回数据库
 	 */
 	class Task implements Runnable{
 		List<Homework> homeworks;

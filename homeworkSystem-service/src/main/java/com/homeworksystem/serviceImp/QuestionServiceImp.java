@@ -64,6 +64,7 @@ public class QuestionServiceImp implements QuestionService{
 	 * @param courseId
 	 * @return
 	 */
+	@Override
 	public List<Question> selectByCourseId(Integer courseId) {
 		List<Question> questions = questionDao.selectByCourseId(courseId);
 		//题目描述outline设置为小于10字符，显示全部题目，否则只显示前10个字符加...
@@ -75,6 +76,7 @@ public class QuestionServiceImp implements QuestionService{
 	 * @param questionId
 	 * @return
 	 */
+	@Override
 	public Question selectByQuestionId(Integer questionId) {
 		return questionDao.selectByPrimaryKey(questionId);
 	}
@@ -82,6 +84,7 @@ public class QuestionServiceImp implements QuestionService{
 	 * 教师提交问题
 	 * @param question
 	 */
+	@Override
 	public void insertQuestion(Question question) {
 		questionDao.insert(question);
 	}
@@ -89,6 +92,7 @@ public class QuestionServiceImp implements QuestionService{
 	 * 取消布置某次作业
 	 * @param questionId
 	 */
+	@Override
 	public void deleteQuestion(String courseId,String questionId) {
 		//对应的学生作业也得删除
 		List<Student> students = curriculaVariableDao.selectByCourseId(Integer.parseInt(courseId));

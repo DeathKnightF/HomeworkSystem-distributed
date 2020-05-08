@@ -11,23 +11,42 @@ import org.apache.ibatis.annotations.Param;
  *
  */
 public interface QuestionMapper {
-    
+    /**
+     * 通过主键删除问题
+     * @param questionId
+     * @return
+     */
     int deleteByPrimaryKey(Integer questionId);
 
-   
+    /**
+     * 插入
+     * @param record
+     * @return
+     */
     int insert(Question record);
 
-    
+    /**
+     * 通过主键查找问题
+     * @param questionId
+     * @return
+     */
     Question selectByPrimaryKey(Integer questionId);
 
-    
+    /**
+     * 查找所有问题
+     * @return
+     */
     List<Question> selectAll();
 
-    
+    /**
+     * 通过主键更新
+     * @param record
+     * @return
+     */
     int updateByPrimaryKey(Question record);
     
     /**
-          * 根据课程号查找出该课程的所有问题
+     * 根据课程号查找出该课程的所有问题
      * @param courseId
      * @return
      */

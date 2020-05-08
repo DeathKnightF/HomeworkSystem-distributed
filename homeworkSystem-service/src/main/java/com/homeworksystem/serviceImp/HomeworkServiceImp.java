@@ -24,6 +24,7 @@ public class HomeworkServiceImp implements HomeworkService{
 	 * 学生提交作业，如果之前提交过作业，那么只更新作业内容
 	 * @param homework
 	 */
+	@Override
 	public void insertHomework(Homework homework) {
 		Homework oldHomework=homeworkDao.selectByPrimaryKey(homework.getStudentId(), homework.getQuestionId());
 		if(oldHomework==null) {
@@ -39,10 +40,18 @@ public class HomeworkServiceImp implements HomeworkService{
 	 * @param questionId
 	 * @return
 	 */
+	@Override
 	public List<Homework> selectByQuestionId(String questionId){
 		return homeworkDao.selectByQuestionId(Integer.parseInt(questionId));
 	}
-	
+	/**
+	 * 教师批改作业时需要按课程号获取所有作业
+	 * @param questionId
+	 * @param pageNum 第几页
+	 * @param pageSize 每页显示几个信息
+	 * @param subscriptNum 页面底部跳转按钮的个数
+	 * @return
+	 */
 	@Override
 	public PageInfo<Homework> selectByQuestionId(String questionId, int pageNum, int pageSize,int subscriptNum) {
 		//分页，每页一个
@@ -57,6 +66,7 @@ public class HomeworkServiceImp implements HomeworkService{
 	 * @param studentId
 	 * @return
 	 */
+	@Override
 	public Integer selectScore(String questionId,String studentId) {
 		return homeworkDao.selectScore(Integer.parseInt(questionId), studentId);
 	}
@@ -66,6 +76,7 @@ public class HomeworkServiceImp implements HomeworkService{
 	 * @param studentId
 	 * @return
 	 */
+	@Override
 	public String selectHomeworkContext(String questionId,String studentId) {
 		Homework homework=homeworkDao.selectByPrimaryKey(studentId, Integer.parseInt(questionId));
 		String context=homework!=null?homework.getHomework():"";
@@ -76,6 +87,7 @@ public class HomeworkServiceImp implements HomeworkService{
 	 * @param questionId
 	 * @return
 	 */
+	@Override
 	public int selectFinishedHomeworkNum(Integer questionId) {
 		return homeworkDao.selectNumByQuestionId(questionId);
 	}
@@ -84,6 +96,7 @@ public class HomeworkServiceImp implements HomeworkService{
 	 * @param questionId
 	 * @param studentId
 	 */
+	@Override
 	public void deleteByPrimaryKey(String questionId,String studentId) {
 		homeworkDao.deleteByPrimaryKey(studentId, Integer.parseInt(questionId));
 	}
@@ -92,6 +105,7 @@ public class HomeworkServiceImp implements HomeworkService{
 	 * @param questionId
 	 * @param studentId
 	 */
+	@Override
 	public void updateScore(String questionId,String studentId,String score) {
 		homeworkDao.updateScore(Integer.parseInt(questionId), studentId, Integer.parseInt(score));
 	}
@@ -99,6 +113,7 @@ public class HomeworkServiceImp implements HomeworkService{
 	 * 更新重复度
 	 * @param homeworks
 	 */
+	@Override
 	public void updateRepeatability(List<Homework> homeworks) {
 		homeworkDao.updateRepeatability(homeworks);
 	}

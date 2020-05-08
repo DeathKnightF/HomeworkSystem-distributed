@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,17 +26,34 @@ import com.homeworksystem.util.DuplicateChecking;
 
 @Controller
 public class TeacherController {
-	
+	/**
+	 * 课程服务，用于对数据库进行增删改查
+	 */
 	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	CourseService courseService;
+	/**
+	 * 选课服务，用于对数据库进行增删改查
+	 */
 	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	CurriculaVariableService curriculaVariableService;
+	/**
+	 * 问题服务，用于对数据库进行增删改查
+	 */
 	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	QuestionService questionService;
+	/**
+	 * 作业服务，用于对数据库进行增删改查
+	 */
 	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	HomeworkService homeworkService;
+	/**
+	 * 教师服务，用于对数据库进行增删改查
+	 */
 	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	TeacherService teacherService;
+	/**
+	 * 查重服务，用于对数据库进行增删改查
+	 */
 	@Reference(url = "127.0.0.1:20080",init = true,check = false)
 	DuplicateChecking duplicateChecking;
 	/**
@@ -52,6 +67,7 @@ public class TeacherController {
 			@PathVariable("page")String page) {
 		ModelAndView mv=new ModelAndView("teacherMainMenu");
 		mv.addObject("id", teacherId);
+		//根据不同功能，从数据库中查找不同数据
 		if(page.equals("myCourse")) {
 			mv.addObject("page", "myCourse");
 			List<Course> courses = courseService.selectByTeacherId(teacherId);
@@ -115,14 +131,19 @@ public class TeacherController {
 		mv.addObject("allTheQuestions", questions);
 		questions.forEach(q -> q.setNum(homeworkService.selectFinishedHomeworkNum(q.getQuestionId())));
 		//获取当前时间
-		SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间 
+		// 格式化时间 
+		SimpleDateFormat sdf = new SimpleDateFormat();
         sdf.applyPattern("yyyy-MM-dd");
 		Date current=new Date();
+		//将当前时间格式化为yyyy-mm--dd
 		String time=sdf.format(current);
+		//通过'-'切分时间，使年月日分离
 		String[] part=time.split("-");
 		int year=Integer.parseInt(part[0]);
 		int month=Integer.parseInt(part[1]);
 		int day=Integer.parseInt(part[2]);
+		//给页面日期选择的复选框设置数值
+		//作业截止日期只提供到后年，比如今年2020年，最大截止日期是2022-12-31
 		List<Integer> years=Arrays.asList(year,year+1,year+2);
 		List<Integer> months=new ArrayList<Integer>();
 		for(int i=0;i<12;i++)
@@ -214,6 +235,7 @@ public class TeacherController {
 		ModelAndView mv=new ModelAndView("correctHomework");
 		PageInfo<Homework> info= homeworkService.selectByQuestionId(questionId, pageNum, 1, 5);
 		mv.addObject("info", info);
+		//为了获取学生ID
 		List<Homework> homeworks2 = homeworkService.selectByQuestionId(questionId);
 		mv.addObject("homeworks", homeworks2);
 		mv.addObject("teacherId", teacherId);

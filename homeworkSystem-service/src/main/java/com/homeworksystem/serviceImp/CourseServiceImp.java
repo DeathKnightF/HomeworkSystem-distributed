@@ -24,6 +24,7 @@ public class CourseServiceImp implements CourseService{
 	 * 查询所有课程
 	 * @return
 	 */
+	@Override
 	public List<Course> selectAll(){
 		List<Course> courses = courseDao.selectAll();
 		//选课人数统计
@@ -36,6 +37,7 @@ public class CourseServiceImp implements CourseService{
 	 * @param teacherId
 	 * @return
 	 */
+	@Override
 	public List<Course> selectByTeacherId(String teacherId){
 		List<Course> courses = courseDao.selectByTeacherId(teacherId);
 		//选课人数统计
@@ -48,6 +50,7 @@ public class CourseServiceImp implements CourseService{
 	 * @param studentId
 	 * @return
 	 */
+	@Override
 	public List<Course> selectByStudentId(String studentId){
 		return curriculaVariableDao.selectByStudentId(studentId);
 	}
@@ -55,6 +58,7 @@ public class CourseServiceImp implements CourseService{
 	 * 开课
 	 * @param course
 	 */
+	@Override
 	public void insert(Course course) {
 		courseDao.insert(course);
 	}
@@ -62,6 +66,7 @@ public class CourseServiceImp implements CourseService{
 	 * 关闭课程
 	 * @param courseId
 	 */
+	@Override
 	public void delete(String courseId) {
 		//先删选课信息
 		curriculaVariableDao.deleteByCourseId(Integer.parseInt(courseId));

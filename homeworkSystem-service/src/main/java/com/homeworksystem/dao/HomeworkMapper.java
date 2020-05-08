@@ -11,22 +11,47 @@ import org.apache.ibatis.annotations.Param;
  *
  */
 public interface HomeworkMapper {
-
+	/**
+	 * 根据主键删除对应作业
+	 * @param studentId
+	 * @param questionId
+	 * @return
+	 */
     int deleteByPrimaryKey(@Param("studentId") String studentId, @Param("questionId") Integer questionId);
 
-
+    /**
+     * 插入
+     * @param record
+     * @return
+     */
     int insert(Homework record);
 
-
+    /**
+     * 通过主键查找作业
+     * @param studentId
+     * @param questionId
+     * @return
+     */
     Homework selectByPrimaryKey(@Param("studentId") String studentId, @Param("questionId") Integer questionId);
 
-
+    /**
+     * 查找全部作业
+     * @return
+     */
     List<Homework> selectAll();
 
- 
+    /**
+     * 通过主键更新作业
+     * @param record
+     * @return
+     */
     int updateByPrimaryKey(Homework record);
     
-    
+    /**
+     * 通过问题号，查找这个问题下的全部作业
+     * @param questionId
+     * @return
+     */
     List<Homework> selectByQuestionId(@Param("questionId")Integer questionId);
     
     /**

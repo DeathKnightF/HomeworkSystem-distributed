@@ -4,7 +4,6 @@ package com.homeworksystem.controller;
 import javax.validation.Valid;
 
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,21 +46,6 @@ public class CentralController {
 		mv.addObject("person", new Person(null,"","       ",null,null));
 		return mv;
 	}
-//	/**
-//	 * 前往学生主界面或者教师主页面
-//	 * @return
-//	 */
-//	@RequestMapping("/toMainMenu/{type}/{id}")
-//	public ModelAndView toMainMenu(@PathVariable("type") String type,@PathVariable("id") String id) {
-//		ModelAndView mv;
-//		if(type.equals("student")) {
-//			mv=new ModelAndView("studentMainMenu");
-//		}else {
-//			mv=new ModelAndView("teacherMainMenu");
-//		}
-//		mv.addObject("id", id);
-//		return mv;
-//	}
 	/**
 	 * 处理登陆信息，校验注册信息的格式是否正确，登陆信息是否正确
 	 * @param person
@@ -86,19 +70,16 @@ public class CentralController {
 					//学生注册
 					studentService.signUp(person.convertToStudent());
 					mv=new ModelAndView("forward:mainMenu/student/myCourse/"+person.getId());
-//					mv.addObject("id", person.getId());
 				}else {
 					//老师注册
 					teacherService.signUp(person.convertToTeacher());
 					mv=new ModelAndView("forward:mainMenu/teacher/myCourse/"+person.getId());
-					mv.addObject("id", person.getId());
 				}
 			}else if(person.getType().equals("student")) {
 				//学生登录
 				if(studentService.login(person.getId(), person.getPassWord())) {
 					//密码正确
 					mv=new ModelAndView("forward:mainMenu/student/myCourse/"+person.getId());
-//					mv.addObject("id", person.getId());
 				}else{
 					//密码错误
 					mv=new ModelAndView("login");
@@ -109,7 +90,6 @@ public class CentralController {
 				if(teacherService.login(person.getId(), person.getPassWord())) {
 					//密码正确
 					mv=new ModelAndView("forward:mainMenu/teacher/myCourse/"+person.getId());
-					mv.addObject("id", person.getId());
 				}else{
 					//密码错误
 					mv=new ModelAndView("login");
@@ -131,6 +111,7 @@ public class CentralController {
 		ModelAndView mv=new ModelAndView("myInfo");
 		Person person=new Person();
 		//先从数据库中找出对应人员的信息
+		//然后转换成person，便于在页面展示
 		if(type.equals("student")) {
 			Student student = studentService.selectByStudentId(id);
 			person = new Person(student);

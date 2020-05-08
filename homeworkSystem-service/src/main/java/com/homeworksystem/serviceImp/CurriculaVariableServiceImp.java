@@ -24,6 +24,7 @@ public class CurriculaVariableServiceImp implements CurriculaVariableService{
 	 * 查询这个学生选的课程
 	 * @return
 	 */
+	@Override
 	public List<Course> selectByStudentId(String studentId){
 		return curriculaVariableDao.selectByStudentId(studentId);
 	}
@@ -31,6 +32,7 @@ public class CurriculaVariableServiceImp implements CurriculaVariableService{
 	 * 查询所有选这门课程的学生学号
 	 * @return
 	 */
+	@Override
 	public List<Student> selectByCourseId(String courseId){
 		return curriculaVariableDao.selectByCourseId(Integer.parseInt(courseId));
 	}
@@ -38,6 +40,7 @@ public class CurriculaVariableServiceImp implements CurriculaVariableService{
 	 * 判断学生是否已经选过该门课
 	 * @return
 	 */
+	@Override
 	public boolean selectByPrimaryKey(String studentId,String courseId) {
 		if(curriculaVariableDao.selectByPrimaryKey(studentId, Integer.parseInt(courseId))==null)
 			return false;
@@ -47,6 +50,7 @@ public class CurriculaVariableServiceImp implements CurriculaVariableService{
 	 * 学生选课
 	 * @param curriculaVariable
 	 */
+	@Override
 	public void insert(CurriculaVariable curriculaVariable) {
 		curriculaVariableDao.insert(curriculaVariable);
 	}
@@ -55,6 +59,7 @@ public class CurriculaVariableServiceImp implements CurriculaVariableService{
 	 * @param studentId
 	 * @param courseId
 	 */
+	@Override
 	public void delete(String studentId,Integer courseId) {
 		curriculaVariableDao.deleteByPrimaryKey(studentId, courseId);
 	}
@@ -63,6 +68,7 @@ public class CurriculaVariableServiceImp implements CurriculaVariableService{
 	 * @param courseId
 	 * @return
 	 */
+	@Override
 	public Integer studentNum(Integer courseId) {
 		return curriculaVariableDao.studentNum(courseId);
 	}
