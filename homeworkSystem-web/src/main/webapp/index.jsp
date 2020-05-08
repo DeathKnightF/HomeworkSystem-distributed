@@ -21,7 +21,7 @@
 		</div>
 		<div class="box">
 			<div class="imgBx">
-				<img alt="" src="css/road.jpg">
+				<img alt="" src="css/images/road.jpg">
 			</div>
 			<div class="content">
 				<h3>简介</h3>
@@ -36,7 +36,7 @@
 		</div>
 		<div class="box">
 			<div class="imgBx">
-				<img alt="" src="css/jungle.jpg">
+				<img alt="" src="css/images/jungle.jpg">
 			</div>
 			<div class="content">
 				<h3>功能</h3>
@@ -52,7 +52,7 @@
 		</div>
 		<div class="box">
 			<div class="imgBx">
-				<img alt="" src="css/book.jpg">
+				<img alt="" src="css/images/book.jpg">
 			</div>
 			<div class="content">
 				<h3>分工</h3>

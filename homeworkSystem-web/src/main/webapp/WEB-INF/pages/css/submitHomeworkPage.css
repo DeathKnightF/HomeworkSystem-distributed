@@ -1,64 +1,12 @@
-
-
-
-
 body{
 	color:black;
 	font:bold 20px/2em '楷体';
-	background-image:url("images/water.png");
+	background-image:url("images/3.jpg");
 	background-position:center;
 	background-size:1500px 1200px;
 	background-repeat:no-repeat;
 	padding: 200px;
-}
-
-h1{
-	color:blue;
-}
-
-
-
-th{
-	font:bold 28px/1.2em '楷体';
-	color: #673927;
-	letter-spacing: 2px;
-	height: 10px;
-	color: black;
-	border-bottom: 1.5px gray;
-}
-
-td{
-	font: normal 18px/1.5em '楷体';
-	color: #673927;
-	height: 15px;
-	etter-spacing: 2px;
-	color: black;
-	vertical-align: bottom;
-}
-
-textarea{
-	font: normal 20px/1.5em '楷体';
-}
-
-table,.td,.th{
-	border: 10px groove lightgray;
-}
-
-
-.left{
-	
-	float:left;
-	width:400px;
-	height:200px;
-	margin-top:40px;
-}
-
-.right{
-	
-	height:600px;
-	width:200px;
-	margin-left:700px;
-	
+	margin-left:13%;
 }
 
 button {

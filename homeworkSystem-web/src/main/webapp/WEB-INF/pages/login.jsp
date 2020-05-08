@@ -17,7 +17,7 @@
 	<!-- class对元素进行分类（css文件选用时用.类名）     id指定元素唯一id -->
 	<div class="container">
 		<h1 style="color: black">学生作业管理系统</h1>
-		<img alt="" src="css/wall.jpg" >
+		<img alt="" src="css/images/wall.jpg" >
 		<div class="panel">
 			<div class="content login">
 				<div class="switch">

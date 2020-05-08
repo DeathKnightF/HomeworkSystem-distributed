@@ -10,9 +10,10 @@
 <%
 	pageContext.setAttribute("ctp", request.getContextPath());
 %>
+<link rel="stylesheet" type="text/css" href="${ctp}/css/submitHomeworkPage.css">
 </head>
 <body>
-<a href="${ctp }/mainMenu/student/chooseQuestion/${requestScope.id}">返回</a>
+<a href="${ctp }/mainMenu/student/chooseQuestion/${requestScope.id}"><button>返回</button></a>
 <p>${requestScope.questionContext}</p>
 <form action="${ctp }/homework/${requestScope.questionId}/${requestScope.id}" method="post">
 	<!-- <input type="text" maxlength="1000" name="context"> -->

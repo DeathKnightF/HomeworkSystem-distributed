@@ -9,9 +9,11 @@
 <%
 	pageContext.setAttribute("ctp", request.getContextPath());
 %>
-<a href="${ctp }/toAssignQuestionPage/${teacherId}/${courseId}">返回</a>
+<link rel="stylesheet" type="text/css" href="${ctp }/css/correctHomework.css">
+
 </head>
 <body>
+<a href="${ctp }/toAssignQuestionPage/${teacherId}/${courseId}"><button>返回</button></a>
 <table border="1">
 	<tr>
 		<th>学号</th>

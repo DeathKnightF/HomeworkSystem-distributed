@@ -10,10 +10,10 @@
 <%
 	pageContext.setAttribute("ctp", request.getContextPath());
 %>
-<link rel="stylesheet" type="text/css" href="${ctp}/css/assignQuestion.css">
+<link rel="stylesheet" type="text/css" href="${ctp }/css/assignQuestion.css">
 </head>
 <body>
-<a href="${ctp }/mainMenu/teacher/myCourse/${teacherId}">返回主界面</a>
+<a href="${ctp }/mainMenu/teacher/myCourse/${teacherId}"><button>返回主界面</button></a>
 <div class="left" >
 <h1>布置作业</h1>
 <form action="${ctp }/newQuestion/${teacherId}/${courseId}" method="post">
