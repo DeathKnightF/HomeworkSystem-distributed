@@ -40,7 +40,6 @@ public class CentralController {
 	 */
 	@RequestMapping("/toLogin")
 	public ModelAndView toLogin() {
-		System.out.println("正在前往登陆界面");
 		ModelAndView mv=new ModelAndView("login");
 		//用于登陆时校验输入是否符合规则，需要传入一个person对象
 		mv.addObject("person", new Person(null,"","       ",null,null));
@@ -54,8 +53,19 @@ public class CentralController {
 	 */
 	@RequestMapping("/login")
 	public ModelAndView login(@Valid Person person,BindingResult result) {
-		System.out.println(person);
+		System.out.print(person);
 		ModelAndView mv=null;
+		if(person.getGender()!=null&&!person.getGender().equals("")) {
+			if(person.getGender().equals("男")||person.getGender().equals("女")) {
+				
+			}else {//性别格式错误
+				System.out.println("性别错误");
+				mv=new ModelAndView("login");
+				mv.addObject("person", person);
+				mv.addObject("error", "性别只能填男/女");
+				return mv;
+			}
+		}
 		if(result.hasErrors()) {
 			//登录信息进行后端校验
 			System.out.println("效验失败");
@@ -133,13 +143,24 @@ public class CentralController {
 			BindingResult result, 
 			@PathVariable("type") String type) {
 		ModelAndView mv;
-		System.out.println(person);
+		System.out.print(person);
+		if(person.getGender()!=null&&!person.getGender().equals("")) {
+			if(!person.getGender().equals("男")&&!person.getGender().equals("女")) {
+				//性别格式错误
+				System.out.println("性别出错");
+				mv=new ModelAndView("myInfo");
+				mv.addObject("info", person);
+				mv.addObject("error", "性别只能填男/女");
+				return mv;
+			}
+		}
 		//后端校验
 		if(result.hasErrors()) {
-			System.out.println(result.getFieldError());
+			System.out.print(result.getFieldError());
 			System.out.println("校验失败");
 			mv=new ModelAndView("myInfo");
 			mv.addObject("info", person);
+			mv.addObject("error","密码应在6-18位之间");
 			return mv;
 		}	
 		mv=new ModelAndView("forward:../toMyInfoPage/"+person.getType()+"/"+person.getId());

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +19,9 @@
 	密码:<form:input path="passWord"/><form:errors path="passWord"/><br/>
 	姓名:<form:input path="userName"/><form:errors path="userName"/><br/>
 	性别:<form:input path="gender"/><form:errors path="gender"/><br/>
+	<c:if test="${error!=null&&!error.equals(\"\")}">
+		${error }<br/>
+	</c:if>
 	<button οnclick="this.form.submit()">更改</button>
 </form:form>
 </body>
