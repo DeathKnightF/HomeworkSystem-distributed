@@ -71,4 +71,16 @@
   		(#{item.questionId},#{item.studentId})
   	</foreach>
   </update>
+  
+  <update id="updateScores">
+  	update homeworks
+  	set score=
+  	<foreach collection="homeworks" item="item" separator=" " open="case" close="end">
+  		when question_id=#{item.questionId} and student_id=#{item.studentId} then #{item.score}
+  	</foreach>
+  	where (question_id,student_id) in
+  	<foreach collection="homeworks" item="item" separator="," open="(" close=")">
+  		(#{item.questionId},#{item.studentId})
+  	</foreach>
+  </update>
 </mapper>

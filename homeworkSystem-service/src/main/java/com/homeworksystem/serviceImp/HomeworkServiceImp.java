@@ -110,12 +110,27 @@ public class HomeworkServiceImp implements HomeworkService{
 		homeworkDao.updateScore(Integer.parseInt(questionId), studentId, Integer.parseInt(score));
 	}
 	/**
+	 * 更改分数
+	 */
+	@Override
+	public void updateScore(List<Homework> homeworks) {
+		homeworkDao.updateScores(homeworks);
+	}
+	/**
 	 * 更新重复度
 	 * @param homeworks
 	 */
 	@Override
 	public void updateRepeatability(List<Homework> homeworks) {
 		homeworkDao.updateRepeatability(homeworks);
+	}
+	
+	/**
+	 * 根据主键检索作业
+	 */
+	@Override
+	public Homework selectByPrimaryKey(String questionId, String studentId) {
+		return homeworkDao.selectByPrimaryKey(studentId, Integer.parseInt(questionId));
 	}
 	
 }

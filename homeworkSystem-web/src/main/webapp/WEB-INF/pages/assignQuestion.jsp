@@ -13,12 +13,15 @@
 <link rel="stylesheet" type="text/css" href="${ctp }/css/assignQuestion.css">
 </head>
 <body>
+<div class="div-box">
+<div class="top">
 <a href="${ctp }/mainMenu/teacher/myCourse/${teacherId}"><button>返回主界面</button></a>
-<div class="left" >
+</div>
+<div class="bottom" >
 <h1>布置作业</h1>
 <form action="${ctp }/newQuestion/${teacherId}/${courseId}" method="post">
 	作业题目：
-	<textarea name="homework" rows="15" cols="60" wrap="soft"></textarea><br/>
+	<textarea name="homework" rows="4" cols="120" wrap="soft"></textarea><br/>
 	截止时间：<br/><select	 name="year">
 				<c:forEach items="${year}" var="y">
 					<option value="${y }">${y }</option>
@@ -43,9 +46,9 @@
 </form>
 </div>
 <br/><br/>
-<div  class="right">
+<div  class="left">
 <h1>我布置过的作业</h1>
-<table border="1" >
+<table border="1" class="1" >
 	<tr>
 		<th>问题编号</th>
 		<th>题目</th>
@@ -53,6 +56,7 @@
 		<th>操作</th>
 		<th>已提交</th>
 		<th>查重</th>
+		<th>参考答案</th>
 		<th>操作</th>
 	</tr>
 	<c:forEach items="${requestScope.allTheQuestions}" var="que">
@@ -62,7 +66,7 @@
 			<td>${que.deadline }</td>
 			<td>
 				<a  onclick="alert('成功取消本次作业！')" href="${ctp }/deleteQuestion/${requestScope.teacherId}/${courseId }/${que.questionId}">
-					取消这次作业
+					删除
 				</a>
 			</td>
 			<td>${que.num }</td>
@@ -80,12 +84,15 @@
 				</c:if>
 			</td>
 			<td>
+				<a href="${ctp }/toSubmitAnswer/${requestScope.teacherId}/${courseId }/${que.questionId}">提交答案</a>
+			</td>
+			<td>
 				<c:if test="${que.num==0}">
-					还没有学生提交作业
+					无数据
 				</c:if>
 				<c:if test="${que.num!=0}">
 					<a  href="${ctp }/toCorrectHomeworkPage/${requestScope.teacherId}/${courseId}/${que.questionId}">
-						批改作业
+						批改
 					</a>
 				</c:if>
 			</td>
@@ -94,8 +101,9 @@
 </table>
 </div>
 <br/><br/>
+<div  class="right">
 <h1>选这门课的学生</h1>
-<table border="1" >
+<table border="1" class="2" >
 	<tr>
 		<th>学号</th>
 		<th>姓名</th>
@@ -109,5 +117,7 @@
 		</tr>
 	</c:forEach>
 </table>
+</div>
+</div>
 </body>
 </html>

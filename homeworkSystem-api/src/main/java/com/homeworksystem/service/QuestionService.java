@@ -48,5 +48,11 @@ public interface QuestionService {
 	 * @param questionId
 	 */
 	public void closeDuplicateChecking(String questionId) ;
+	/**
+	 * 教师提交问题的参考答案
+	 * @param questionId
+	 * @param answer
+	 */
+	public void updateAnswer(String questionId,String answer);
 	
 }

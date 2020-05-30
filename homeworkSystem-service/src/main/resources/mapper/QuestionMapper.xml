@@ -8,6 +8,7 @@
     <result column="question" property="question" jdbcType="LONGVARCHAR"/>
     <result column="deadline" property="deadline" jdbcType="TIMESTAMP"/>
     <result column="dup_check" property="dupCheck" jdbcType="INTEGER"/>
+    <result column="answer" property="answer" jdbcType="LONGVARCHAR"/>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from questions
@@ -30,7 +31,7 @@
   </update>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select question_id, course_id, question ,deadline,dup_check
+    select question_id, course_id, question ,deadline,dup_check,answer
     from questions
     where question_id = #{questionId,jdbcType=INTEGER}
   </select>
@@ -49,6 +50,12 @@
   <update id="updateDupCheck">
   	update questions
   	set dup_check=#{dupCheck}
+  	where question_id=#{questionId}
+  </update>
+  
+  <update id="updateAnswer">
+  	update questions
+  	set answer=#{answer}
   	where question_id=#{questionId}
   </update>
 </mapper>

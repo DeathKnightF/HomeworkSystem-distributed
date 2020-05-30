@@ -27,12 +27,12 @@ public class CentralController {
 	/**
 	 * studentService用于对数据库进行增删改查学生信息
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	StudentService studentService;
 	/**
 	 * studentService用于对数据库进行增删改查教师信息
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	TeacherService teacherService;
 	/**
 	 * 前往登陆界面

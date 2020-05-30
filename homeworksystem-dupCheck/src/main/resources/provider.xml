@@ -13,7 +13,7 @@
 	<dubbo:registry address="zookeeper://127.0.0.1:2181?client=curator"></dubbo:registry>
 	
 	<dubbo:reference interface="com.homeworksystem.service.HomeworkService" id="homeworkService"></dubbo:reference>
-	
+	<dubbo:reference interface="com.homeworksystem.service.QuestionService" id="questionService"></dubbo:reference>
 	<!-- 3、指定通信规则 -->
 	<dubbo:protocol name="dubbo" port="20081"></dubbo:protocol>
 
@@ -22,6 +22,6 @@
 	<dubbo:consumer check="false"></dubbo:consumer>
 	
 	<dubbo:service interface="com.homeworksystem.util.DuplicateChecking" ref="duplicateCheckingImp"></dubbo:service>
-
+	<dubbo:service interface="com.homeworksystem.util.AutomaticCorrection" ref="automaticCorrectionImp"></dubbo:service>
 
 </beans>

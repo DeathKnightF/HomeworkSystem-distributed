@@ -14,6 +14,7 @@ import java.sql.Timestamp;
  *@param isLate 是否过了截止日期
  *@param num 已经提交作业的学生人数
  *@param dupCheck 教师是否启动查重
+ *@param answer 参考答案
  */
 public class Question implements Serializable{
     
@@ -70,6 +71,11 @@ public class Question implements Serializable{
      * 教师是否启动查重
      */
     private Integer dupCheck;
+    /**
+     * 参考答案
+     */
+    private String answer;
+    
     public Question() {
     	
     }
@@ -235,13 +241,18 @@ public class Question implements Serializable{
 	public void setDupCheck(Integer dupCheck) {
 		this.dupCheck = dupCheck;
 	}
+
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
 	@Override
 	public String toString() {
 		return "Question [questionId=" + questionId + ", courseId=" + courseId + ", question=" + question + ", outline="
 				+ outline + ", courseName=" + courseName + ", score=" + score + ", deadline=" + deadline + ", isLate="
-				+ isLate + ", num=" + num + ", dupCheck=" + dupCheck + "]";
+				+ isLate + ", num=" + num + ", dupCheck=" + dupCheck + ", answer=" + answer + "]";
 	}
-	
-	
 	
 }

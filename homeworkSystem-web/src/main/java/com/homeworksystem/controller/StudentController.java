@@ -18,6 +18,7 @@ import com.homeworksystem.service.CourseService;
 import com.homeworksystem.service.CurriculaVariableService;
 import com.homeworksystem.service.HomeworkService;
 import com.homeworksystem.service.QuestionService;
+import com.homeworksystem.util.AutomaticCorrection;
 import com.homeworksystem.util.DuplicateChecking;
 
 /**
@@ -29,28 +30,33 @@ public class StudentController {
 	/**
 	 * 这个类提供的方法用于增删改查数据库中课程相关的数据。
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	CourseService courseService;
 	/**
 	 * 这个类提供的方法用于增删改查数据库中选课相关的数据。
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	CurriculaVariableService curriculaVariableService;
 	/**
 	 * 这个类提供的方法用于增删改查数据库中问题相关的数据。
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	QuestionService questionService;
 	/**
 	 * 这个类提供的方法用于增删改查数据库中作业相关的数据。
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	HomeworkService homeworkService;
 	/**
 	 * 查重服务
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	DuplicateChecking duplicateChecking;
+	/**
+	 * 自动判题
+	 */
+	@Reference(init = true,check = false)
+	AutomaticCorrection automaticCorrection;
 	/**
 	 * 跳转到学生主页面
 	 * @param studentId
@@ -141,6 +147,11 @@ public class StudentController {
 		mv.addObject("homeworkContext", context);
 		//是否截止
 		mv.addObject("isLate", new Timestamp(System.currentTimeMillis()).after(question.getDeadline()));
+		mv.addObject("type", 1);
+		if(new Timestamp(System.currentTimeMillis()).after(question.getDeadline())) {
+			//过了截止时间，显示参考答案
+			mv.addObject("answer", question.getAnswer());
+		}
 		return mv;
 	}
 	/**
@@ -158,8 +169,10 @@ public class StudentController {
 		ModelAndView mv=new ModelAndView("forward:../../mainMenu/student/chooseQuestion/"+studentId);
 		mv.addObject("id", studentId);
 		//如果之前提交过作业，那么只更新作业内容
-		homeworkService.insertHomework(new Homework(studentId, Integer.parseInt(questionId), homeworkContext, 0,null));
+		homeworkService.insertHomework(new Homework(studentId, Integer.parseInt(questionId), homeworkContext.trim(), 0,null));
 		Question question = questionService.selectByQuestionId(Integer.parseInt(questionId));
+		//自动批改作业
+		automaticCorrection.correct(questionId, studentId);
 		if(question.getDupCheck()==1)//教师开启查重，这将此作业进行查重
 			duplicateChecking.check(Integer.parseInt(questionId));
 		return mv;

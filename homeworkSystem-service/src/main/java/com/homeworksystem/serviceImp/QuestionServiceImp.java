@@ -114,4 +114,11 @@ public class QuestionServiceImp implements QuestionService{
 	public void closeDuplicateChecking(String questionId) {
 		questionDao.updateDupCheck(Integer.parseInt(questionId),0);
 	}
+	/**
+	 * 更新参考答案
+	 */
+	@Override
+	public void updateAnswer(String questionId, String answer) {
+		questionDao.updateAnswer(Integer.parseInt(questionId),answer);
+	}
 }

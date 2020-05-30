@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @param score 成绩
  * @param userName 学生姓名
  * @param repeatability 重复度
- *
+ * @param assess 评价
  */
 public class Homework implements Serializable{
 
@@ -47,7 +47,10 @@ public class Homework implements Serializable{
      * 查重
      */
     private Integer repeatability;
-    
+    /**
+     * 评价
+     */
+    private String assess;
     public Homework(){
     	
     }
@@ -127,11 +130,20 @@ public class Homework implements Serializable{
 		this.repeatability = repeatability;
 	}
 
+	
+	
+	public String getAssess() {
+		return assess;
+	}
+
+	public void setAssess(String assess) {
+		this.assess = assess;
+	}
+
 	@Override
 	public String toString() {
 		return "Homework [studentId=" + studentId + ", questionId=" + questionId + ", homework=" + homework + ", score="
-				+ score + ", userName=" + userName + ", repeatability=" + repeatability + "]";
+				+ score + ", userName=" + userName + ", repeatability=" + repeatability + ", assess=" + assess + "]";
 	}
 
-	
 }

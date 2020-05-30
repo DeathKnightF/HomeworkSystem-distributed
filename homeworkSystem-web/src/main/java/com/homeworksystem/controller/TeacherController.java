@@ -22,6 +22,7 @@ import com.homeworksystem.service.CurriculaVariableService;
 import com.homeworksystem.service.HomeworkService;
 import com.homeworksystem.service.QuestionService;
 import com.homeworksystem.service.TeacherService;
+import com.homeworksystem.util.AutomaticCorrection;
 import com.homeworksystem.util.DuplicateChecking;
 
 @Controller
@@ -29,33 +30,38 @@ public class TeacherController {
 	/**
 	 * 课程服务，用于对数据库进行增删改查
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	CourseService courseService;
 	/**
 	 * 选课服务，用于对数据库进行增删改查
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	CurriculaVariableService curriculaVariableService;
 	/**
 	 * 问题服务，用于对数据库进行增删改查
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	QuestionService questionService;
 	/**
 	 * 作业服务，用于对数据库进行增删改查
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	HomeworkService homeworkService;
 	/**
 	 * 教师服务，用于对数据库进行增删改查
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	TeacherService teacherService;
 	/**
 	 * 查重服务，用于对数据库进行增删改查
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+	@Reference(init = true,check = false)
 	DuplicateChecking duplicateChecking;
+	/**
+	 * 自动判题
+	 */
+	@Reference(init = true,check = false)
+	AutomaticCorrection automaticCorrection;
 	/**
 	 * 前往教师主页面
 	 * @param teacherId
@@ -217,6 +223,46 @@ public class TeacherController {
 		}else {
 			questionService.closeDuplicateChecking(questionId);
 		}
+		return mv;
+	}
+	/**
+	 * 跳转到提交参考答案界面
+	 * @param teacherId
+	 * @param courseId
+	 * @param questionId
+	 * @return
+	 */
+	@RequestMapping("toSubmitAnswer/{teacherId}/{courseId}/{questionId}")
+	public ModelAndView toSubmitAnswer(
+			@PathVariable("teacherId")String teacherId,
+			@PathVariable("courseId")String courseId,
+			@PathVariable("questionId")String questionId) {
+		ModelAndView mv=new ModelAndView("submitHomeworkPage");
+		mv.addObject("id", teacherId);
+		mv.addObject("courseId", courseId);
+		mv.addObject("questionId",questionId);
+		mv.addObject("type", 0);
+		Question question = questionService.selectByQuestionId(Integer.parseInt(questionId));
+		mv.addObject("question", question);
+		System.out.println(question);
+		return mv;
+	}
+	/**
+	 * 提交参考答案
+	 * @param courseId
+	 * @param teacherId
+	 * @return
+	 */
+	@RequestMapping("answer/{teacherId}/{courseId}/{questionId}")
+	public ModelAndView submitAnswer(
+			@PathVariable("courseId")String courseId,
+			@PathVariable("teacherId")String teacherId,
+			@PathVariable("questionId")String questionId,
+			@RequestParam(value="answer",defaultValue = "")String answer) {
+		ModelAndView mv=new ModelAndView("forward:../../../toAssignQuestionPage/"+teacherId+"/"+courseId);
+		System.out.println("参考答案"+questionId+" "+answer);
+		questionService.updateAnswer(questionId, answer.trim());
+		automaticCorrection.correct(questionId);
 		return mv;
 	}
 	/**

@@ -79,4 +79,9 @@ public interface HomeworkMapper {
      * @param homeworks
      */
     void updateRepeatability(@Param("homeworks")List<Homework> homeworks);
+    /**
+     * 更新分数
+     * @param homeworks
+     */
+	void updateScores(@Param("homeworks")List<Homework> homeworks);
 }

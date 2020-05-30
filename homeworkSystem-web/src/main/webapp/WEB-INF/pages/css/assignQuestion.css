@@ -1,25 +1,22 @@
-
-
-
-
 body{
 	color:black;
 	font:bold 20px/2em '楷体';
-	background-image:url("images/water.png");
+	background-image:url("images/8.jpg");
 	background-position:center;
-	background-size:1500px 1200px;
+	background-size:100% auto;
 	background-repeat:no-repeat;
 	padding: 200px;
+	height:100%;
 }
 
 h1{
-	color:blue;
+	color:black;
 }
 
 
-
 th{
-	font:bold 28px/1.2em '楷体';
+	width="100"
+	font:bold 20px/1.2em '楷体';
 	color: #673927;
 	letter-spacing: 2px;
 	height: 10px;
@@ -28,7 +25,7 @@ th{
 }
 
 td{
-	font: normal 18px/1.5em '楷体';
+	font: normal 15px/1.2em '楷体';
 	color: #673927;
 	height: 15px;
 	etter-spacing: 2px;
@@ -40,25 +37,50 @@ textarea{
 	font: normal 20px/1.5em '楷体';
 }
 
-table,.td,.th{
+table{
+	table-layout:fixed;
+	word-break:break-all;
+	word-wrap:break-word;
 	border: 10px groove lightgray;
+	height:40px;
+	width:600px;
+	
 }
 
 
-.left{
+.div-box{
+    position: absolute;
+    width: 80%;
+    height: 100%;
+    
+}
+
+.top{
+	position:absolute;
+	top:0%;
+	font-size:em;
 	
-	float:left;
-	width:400px;
-	height:200px;
-	margin-top:40px;
+}
+
+.bottom{
+	position:absolute;
+	top:65%;
+	font-size:em;
+	
+}
+
+.left{
+	position:absolute;
+	left:0%;
+	top:5%;
+	font-size:em;
 }
 
 .right{
-	
-	height:600px;
-	width:200px;
-	margin-left:700px;
-	
+	position:absolute;
+	left:60%;
+	top:5%;
+	font-size:em;
 }
 
 button {

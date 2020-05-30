@@ -13,19 +13,40 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/submitHomeworkPage.css">
 </head>
 <body>
-<a href="${ctp }/mainMenu/student/chooseQuestion/${requestScope.id}"><button>返回</button></a>
-<p>${requestScope.questionContext}</p>
-<form action="${ctp }/homework/${requestScope.questionId}/${requestScope.id}" method="post">
-	<!-- <input type="text" maxlength="1000" name="context"> -->
-	<textarea id="area" name="homeworkContext" rows="40" cols="60">
-		${requestScope.homeworkContext}
-	</textarea><br/>
-	<c:if test="${isLate==false}">
+<!-- 教师 -->
+<c:if test="${type==0}">
+	<a href="${ctp }/toAssignQuestionPage/${id}/${courseId}"><button>返回</button></a>
+	<p>${question.question}</p>
+	<form action="${ctp }/answer/${id}/${courseId}/${questionId }" method="post">
+		<!-- <input type="text" maxlength="1000" name="context"> -->
+		<textarea id="area" name="answer" rows="40" cols="60">
+			${question.answer}
+		</textarea><br/>
 		<button οnclick="this#area.submit()">提交</button>
-	</c:if>
-	<c:if test="${isLate==true}">
-		已截止，不能提交
-	</c:if>
-</form>
+	</form>
+</c:if>
+
+<!-- 学生 -->
+<c:if test="${type!=0}">
+	<a href="${ctp }/mainMenu/student/chooseQuestion/${id}"><button>返回</button></a>
+	<p>${questionContext}</p>
+	<form action="${ctp }/homework/${questionId}/${id}" method="post">
+		<!-- <input type="text" maxlength="1000" name="context"> -->
+		<textarea id="area" name="homeworkContext" rows="40" cols="60">
+			${homeworkContext}
+		</textarea><br/>
+		<c:if test="${isLate==false}">
+			<button οnclick="this#area.submit()">提交</button>
+		</c:if>
+		<c:if test="${isLate==true}">
+			已截止，不能提交
+		</c:if>
+		<c:if test="${answer!=null}">
+			<p>参考答案：</p>
+				${answer }
+		</c:if>
+	</form>
+</c:if>
+
 </body>
 </html>

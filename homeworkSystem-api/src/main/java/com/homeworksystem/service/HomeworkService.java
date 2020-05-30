@@ -66,8 +66,21 @@ public interface HomeworkService {
 	 */
 	public void updateScore(String questionId,String studentId,String score) ;
 	/**
+	 * 更改分数
+	 * @param homeworks
+	 */
+	public void updateScore(List<Homework> homeworks);
+	/**
 	 * 更新重复度
 	 * @param homeworks
 	 */
 	public void updateRepeatability(List<Homework> homeworks) ;
+	/**
+	 * 根据主键查找作业
+	 * @param string
+	 * @param string2
+	 * @return
+	 */
+	public Homework selectByPrimaryKey(String questionId, String studentId);
+	
 }

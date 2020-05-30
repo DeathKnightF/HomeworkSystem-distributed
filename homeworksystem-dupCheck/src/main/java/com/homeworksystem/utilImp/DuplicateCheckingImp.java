@@ -5,7 +5,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.apache.dubbo.config.annotation.Reference;
+//import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.homeworksystem.bean.Homework;
@@ -33,7 +34,8 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 	/**
 	 * 获取Service服务
 	 */
-	@Reference(url = "127.0.0.1:20080",init = true,check = false)
+//	@Reference(init = true,check = false)
+	@Autowired
 	private HomeworkService homeworkService;
 	/**
 	 * 初始化
@@ -48,18 +50,19 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 	@Override
 	public void check(Integer id) {
 		waitList.add(id);
-		System.out.println("问题号："+id+"进入等待");
+		System.out.println("问题号："+id+"进入等待查重等待队列");
 	}
 	/**
 	 * 不断从待执行队列中拿出问题号，交由线程池执行
 	 */
+	@Override
 	public void run() {
+		System.out.println(homeworkService!=null?"service正常运行":"service不正常");
 		while(true) {
 			if(waitList.isEmpty()) {
 				Thread.yield();
 				continue;
 			}
-			System.out.println("拿出问题号");
 			//从待执行队列中拿出问题号
 			Integer questionId = waitList.poll();
 			//从数据库中拿出这个问题下所有作业
@@ -92,7 +95,7 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 						check(h1,h2);
 			//放回数据库
 			homeworkService.updateRepeatability(homeworks);
-			System.out.println("成功写回数据库");
+			System.out.println("重复度成功写回数据库");
 		}
 		/**
 		 * 查重

@@ -57,4 +57,10 @@ public interface QuestionMapper {
      * @param dupCheck
      */
     void updateDupCheck(@Param("questionId")Integer questionId,@Param("dupCheck")Integer dupCheck);
+    /**
+     * 更新参考打啊
+     * @param parseInt
+     * @param answer
+     */
+	void updateAnswer(@Param("questionId")Integer questionId,@Param("answer") String answer);
 }
