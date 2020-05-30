@@ -2,8 +2,8 @@
 老师teachers		(teacher_id*,pass_word,user_name,gender)
 课程courses		(course_id*,teacher_id,course_name)
 选课s_c 			(course_id*,student_id*)
-题目questions		(question_id*,course_id,question,deadline,dup_check)    deadline截止时间     dup_check是否启动查重
-作业homeworks		(question_id*,student_id*,homework,score,repeatability) repeatability重复度
+题目questions		(question_id*,course_id,question,deadline,dup_check,answer)    deadline截止时间     dup_check是否启动查重 answer参考答案
+作业homeworks		(question_id*,student_id*,homework,score,repeatability,assess) repeatability重复度 assess评价
 其中加*为主码
 
 
