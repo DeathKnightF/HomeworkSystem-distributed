@@ -21,7 +21,7 @@
 <h1>布置作业</h1>
 <form action="${ctp }/newQuestion/${teacherId}/${courseId}" method="post">
 	作业题目：
-	<textarea name="homework" rows="4" cols="120" wrap="soft"></textarea><br/>
+	<textarea name="questionContext" rows="4" cols="120" wrap="soft"></textarea><br/>
 	截止时间：<br/><select	 name="year">
 				<c:forEach items="${year}" var="y">
 					<option value="${y }">${y }</option>
