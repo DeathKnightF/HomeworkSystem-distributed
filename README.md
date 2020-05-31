@@ -1,6 +1,9 @@
 # HomeworkSystem
-基于SSM、dubbo、Tomcat、zookeeper、ehcache制作的分布式作业管理系统。
-
+基于Spring、SpringMVC、Mybatis、dubbo、Tomcat、Zookeeper、ehcache制作的分布式作业管理系统。</br>
+功能简介：</br>
+学生：更改信息、选课、查看题目、提交作业、查看成绩、查看参考答案。</br>
+教师：更改信息、开课、查看选课学生、布置作业、提交参考答案、批改作业</br>
+系统：根据教师的参考答案自动批改作业、计算各个学生之间作业的重复度并在教师端显示。</br>
 
 
 
@@ -34,7 +37,6 @@ service提供查询数据库服务，dupCheck和web可以使用其提供的服�
 dupCheck多线程查重，从service中获取作业信息后，利用算法对其进行计算，计算每两个作业之间的重复度。</br>
 web建立Tomcat服务器之上，为用户提供可视化的页面，客户的请求由其转发给service和dupCheck。</br>
 采用Alibaba的开源项目dubbo实现的分布式系统，其中注册中心是zookeeper。</br>
-目录/数据库/Mysql.txt存放恢复数据库的sql语句。</br>
 
 							开发环境
 
@@ -71,7 +73,7 @@ Maven  </br>
 
 
 
-							单机版环境搭建步骤
+						 伪分布式环境搭建步骤
 
 
 1、确保上面开发环境运行正常 </br>
@@ -109,8 +111,8 @@ Maven  </br>
 
 2、步骤基本与单机一致，不同：多机在启动程序前需要修改 </br>
 	/com.homeworksystem-dupCheck/src/main/resources/provider.xml </br>
-	/homeworkSystem-web/src/main/resources/consumer.xml </br>
 	/homeworksystem-service/src/main/resources/ApplicationContext.xml </br>
+	/homeworkSystem-web/src/main/resources/springmvc-servlet.xml </br>
 	中<dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>  IP地址改为zookeeper所在的IP地址 </br>
 
 3、其他的部分一致 </br>
@@ -139,4 +141,7 @@ https://blog.csdn.net/weixin_43422355/article/details/83309750#commentBox
 查看工具栏中窗口——首选项中有无server选项，若无，解决方法如下：
 	https://blog.csdn.net/weixin_43422355/article/details/83309750
 	https://blog.csdn.net/losedguest/article/details/80010990?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1&utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1
+	
+5、启动Tomcat服务器在初始化dispatcherServlet卡住超时：
+更换Tomcat版本重新启动
 
