@@ -144,7 +144,7 @@ body{
 		border-top-left-radius:10px;
 		border-top-right-radius:10px;
 		background: url("images/48.jpg") 0 0 no-repeat,
-				url("images/45.jpg") 149px 0 no-repeat;
+			url("images/45.jpg")  no-repeat right top;			
 		background-position: left top;
 		opacity: 0.70;
 
@@ -153,7 +153,8 @@ body{
 		margin-left: 13.25%;
 		height: 110px;
 		text-align: center;	
-		padding-top: 23px;
+		padding-top: 15px;
+		padding-right: 15px;
 		margin-top: -5px;
 		border-bottom-left-radius:10px;
 		border-bottom-right-radius:10px;
@@ -161,22 +162,25 @@ body{
 		border-left: solid 5px #CCCCFF;
 		border-right: solid 5px #CCCCFF;
 		background: url("images/40.png") 0 22px no-repeat,
-			url("images/44.jpg") 1707px 15px no-repeat;
+			url("images/41.png")  no-repeat right 10px;
+			
 	}
 
 	#cont{
 		height: 704px;
 		text-align: center;	
 		border-bottom:double 3px #666633;
-		border-radius: 10px;
-		background: url("images/46.jpg") 135px 100px no-repeat,
-		url("images/47.png") 1502px 0 no-repeat;
+		border-radius: 10px;	
 		overflow: auto;
+		background:  url("images/47.png")  no-repeat right bottom,
+			url("images/46.jpg")  120px 100px no-repeat;		
+  		
 	}
 
 	#c1{
-		margin-left: 31%;
-		margin-right: 29%;
+		float: left;
+		width: 34%;	
+		margin-left: 30%;
 		margin-bottom: 5%;
 		margin-top: 4%;
 		text-align: left;
@@ -184,9 +188,12 @@ body{
 		border-radius: 5px;
   		background-color: rgba(0,255,0,0.08);
   		padding-bottom: 35px;
-  		padding-left: 60px;
+  		padding-left: 50px;
   		padding-right: 50px;
+  		overflow: auto;
+  		
 	}
+
 
 	#footer{
 		font:normal 18px/2em '楷体';
@@ -269,6 +276,7 @@ body{
 		color: #673927;
 		letter-spacing: 2px;
 		line-height: 55px;
+		position: relative;
 	}
     input{
 		width: 580px;
