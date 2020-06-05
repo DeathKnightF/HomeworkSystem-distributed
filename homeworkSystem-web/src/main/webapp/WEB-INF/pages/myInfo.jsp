@@ -10,19 +10,60 @@
 <%
 	pageContext.setAttribute("ctp", request.getContextPath());
 %>
+<link rel="stylesheet" type="text/css" href="${ctp}/css/myInfo.css">
 </head>
-<a href="${ctp }/mainMenu/${info.type }/myCourse/${info.id}">返回主界面</a>
-<h1>我的信息</h1>
-<form:form action="${ctp }/change/${info.type }" modelAttribute="info" method="post">
-	<form:hidden path="id"/>
-	学号/工号:${info.id}<br/>
-	密码:<form:input path="passWord"/><form:errors path="passWord"/><br/>
-	姓名:<form:input path="userName"/><form:errors path="userName"/><br/>
-	性别:<form:input path="gender"/><form:errors path="gender"/><br/>
-	<c:if test="${error!=null&&!error.equals(\"\")}">
-		${error }<br/>
-	</c:if>
-	<button οnclick="this.form.submit()">更改</button>
-</form:form>
+<body>
+	<div id="container">
+
+		<div id="header"></div>
+
+		<div id="main">
+
+			<div id="aside">
+				<div id="block1"></div>
+				<div id="block2"></div>
+				<div id="block3"></div>
+				<div id="block4"></div>
+				<div id="block5"></div>
+			</div>
+
+			<div id="content">
+
+				<div id="leading">
+					<a href="${ctp }/mainMenu/${info.type }/myCourse/${info.id}">返回主界面</a>
+
+				</div>
+
+				<div id="choice">				
+					<h1>我的信息</h1>
+				</div>
+
+					<div id="cont">		
+						<div id="c1">
+						<form:form action="${ctp }/change/${info.type }" modelAttribute="info" method="post">
+							<form:hidden path="id"/>
+							<br/>学号/工号:${info.id}<br/>
+							密码:<br/>
+							<form:input path="passWord"/><form:errors path="passWord"/><br/>
+							姓名:<br/>
+							<form:input path="userName"/><form:errors path="userName"/><br/>
+							性别:<br/>
+							<form:input path="gender"/><form:errors path="gender"/><br/>
+							<c:if test="${error!=null&&!error.equals(\"\")}">
+								${error }<br/>
+							</c:if>
+							<button οnclick="this.form.submit()">更改</button>
+							</form:form>
+						</div>
+					</div>
+				</div>
+		
+		</div>
+
+		<div id="footer">	
+			<a href="#" target="_blank">设计背景</a> | <a href="#" target="_blank">设计人员</a> | <a href="#" target="_blank">设计目的</a> | <a target="_blank" href="#">使用说明</a> | <a href="#" target="_blank">提供意见</a>		
+		</div>
+	</div>
+
 </body>
 </html>
