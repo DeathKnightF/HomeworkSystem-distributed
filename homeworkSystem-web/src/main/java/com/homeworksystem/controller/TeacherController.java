@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import org.apache.dubbo.config.annotation.Reference;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,37 +32,41 @@ public class TeacherController {
 	 * 课程服务，用于对数据库进行增删改查
 	 */
 	@Reference(init = true,check = false)
-	CourseService courseService;
+	private CourseService courseService;
 	/**
 	 * 选课服务，用于对数据库进行增删改查
 	 */
 	@Reference(init = true,check = false)
-	CurriculaVariableService curriculaVariableService;
+	private CurriculaVariableService curriculaVariableService;
 	/**
 	 * 问题服务，用于对数据库进行增删改查
 	 */
 	@Reference(init = true,check = false)
-	QuestionService questionService;
+	private QuestionService questionService;
 	/**
 	 * 作业服务，用于对数据库进行增删改查
 	 */
 	@Reference(init = true,check = false)
-	HomeworkService homeworkService;
+	private HomeworkService homeworkService;
 	/**
 	 * 教师服务，用于对数据库进行增删改查
 	 */
 	@Reference(init = true,check = false)
-	TeacherService teacherService;
+	private TeacherService teacherService;
 	/**
 	 * 查重服务，用于对数据库进行增删改查
 	 */
 	@Reference(init = true,check = false)
-	DuplicateChecking duplicateChecking;
+	private DuplicateChecking duplicateChecking;
 	/**
 	 * 自动判题
 	 */
 	@Reference(init = true,check = false)
-	AutomaticCorrection automaticCorrection;
+	private AutomaticCorrection automaticCorrection;
+	/**
+	 * 日志
+	 */
+	private Logger logger=Logger.getLogger(TeacherController.class);
 	/**
 	 * 前往教师主页面
 	 * @param teacherId
@@ -244,7 +249,7 @@ public class TeacherController {
 		mv.addObject("type", 0);
 		Question question = questionService.selectByQuestionId(Integer.parseInt(questionId));
 		mv.addObject("question", question);
-		System.out.println(question);
+		logger.info("教师布置作业，具体内容："+question);
 		return mv;
 	}
 	/**
@@ -260,7 +265,7 @@ public class TeacherController {
 			@PathVariable("questionId")String questionId,
 			@RequestParam(value="answer",defaultValue = "")String answer) {
 		ModelAndView mv=new ModelAndView("forward:../../../toAssignQuestionPage/"+teacherId+"/"+courseId);
-		System.out.println("参考答案"+questionId+" "+answer);
+		logger.info("参考答案"+questionId+" "+answer.trim());
 		questionService.updateAnswer(questionId, answer.trim());
 		automaticCorrection.correct(questionId);
 		return mv;

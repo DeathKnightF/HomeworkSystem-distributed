@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.dubbo.config.annotation.Reference;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,32 +32,36 @@ public class StudentController {
 	 * 这个类提供的方法用于增删改查数据库中课程相关的数据。
 	 */
 	@Reference(init = true,check = false)
-	CourseService courseService;
+	private CourseService courseService;
 	/**
 	 * 这个类提供的方法用于增删改查数据库中选课相关的数据。
 	 */
 	@Reference(init = true,check = false)
-	CurriculaVariableService curriculaVariableService;
+	private CurriculaVariableService curriculaVariableService;
 	/**
 	 * 这个类提供的方法用于增删改查数据库中问题相关的数据。
 	 */
 	@Reference(init = true,check = false)
-	QuestionService questionService;
+	private QuestionService questionService;
 	/**
 	 * 这个类提供的方法用于增删改查数据库中作业相关的数据。
 	 */
 	@Reference(init = true,check = false)
-	HomeworkService homeworkService;
+	private HomeworkService homeworkService;
 	/**
 	 * 查重服务
 	 */
 	@Reference(init = true,check = false)
-	DuplicateChecking duplicateChecking;
+	private DuplicateChecking duplicateChecking;
 	/**
 	 * 自动判题
 	 */
 	@Reference(init = true,check = false)
-	AutomaticCorrection automaticCorrection;
+	private AutomaticCorrection automaticCorrection;
+	/**
+	 * 日志
+	 */
+	private Logger logger=Logger.getLogger(StudentController.class);
 	/**
 	 * 跳转到学生主页面
 	 * @param studentId
@@ -165,7 +170,7 @@ public class StudentController {
 	public ModelAndView submitHomework(@PathVariable("studentId")String studentId
 			,@PathVariable("questionId")String questionId
 			,@RequestParam(value="homeworkContext",defaultValue = "")String homeworkContext) {
-		System.out.println(homeworkContext);
+		logger.info("学号为"+studentId+"提交作业，内容为"+homeworkContext.trim());
 		ModelAndView mv=new ModelAndView("forward:../../mainMenu/student/chooseQuestion/"+studentId);
 		mv.addObject("id", studentId);
 		//如果之前提交过作业，那么只更新作业内容

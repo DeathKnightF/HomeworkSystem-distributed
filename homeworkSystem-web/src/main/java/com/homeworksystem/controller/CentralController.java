@@ -4,6 +4,7 @@ package com.homeworksystem.controller;
 import javax.validation.Valid;
 
 import org.apache.dubbo.config.annotation.Reference;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,10 @@ public class CentralController {
 	@Reference(init = true,check = false)
 	TeacherService teacherService;
 	/**
+	 * 日志
+	 */
+	private Logger logger=Logger.getLogger(CentralController.class);
+	/**
 	 * 前往登陆界面
 	 * @return
 	 */
@@ -53,13 +58,13 @@ public class CentralController {
 	 */
 	@RequestMapping("/login")
 	public ModelAndView login(@Valid Person person,BindingResult result) {
-		System.out.print(person);
+		logger.info("登录信息："+person);
 		ModelAndView mv=null;
 		if(person.getGender()!=null&&!person.getGender().equals("")) {
 			if(person.getGender().equals("男")||person.getGender().equals("女")) {
 				
 			}else {//性别格式错误
-				System.out.println("性别错误");
+				logger.info("注册，性别错误");
 				mv=new ModelAndView("login");
 				mv.addObject("person", person);
 				mv.addObject("error", "性别只能填男/女");
@@ -68,7 +73,7 @@ public class CentralController {
 		}
 		if(result.hasErrors()) {
 			//登录信息进行后端校验
-			System.out.println("效验失败");
+			logger.info("登陆信息吧符合规定，效验失败");
 			mv=new ModelAndView("login");
 			mv.addObject("person", person);
 			return mv;
@@ -80,31 +85,37 @@ public class CentralController {
 					//学生注册
 					studentService.signUp(person.convertToStudent());
 					mv=new ModelAndView("forward:mainMenu/student/myCourse/"+person.getId());
+					logger.info("学生注册成功：学号"+person.getId());
 				}else {
 					//老师注册
 					teacherService.signUp(person.convertToTeacher());
 					mv=new ModelAndView("forward:mainMenu/teacher/myCourse/"+person.getId());
+					logger.info("教师注册成功：工号"+person.getId());
 				}
 			}else if(person.getType().equals("student")) {
 				//学生登录
 				if(studentService.login(person.getId(), person.getPassWord())) {
 					//密码正确
 					mv=new ModelAndView("forward:mainMenu/student/myCourse/"+person.getId());
+					logger.info("学生登陆成功：学号"+person.getId());
 				}else{
 					//密码错误
 					mv=new ModelAndView("login");
 					mv.addObject("person", person);
 					mv.addObject("error", "用户名或密码错误");
+					logger.info("学生登陆失败：学号"+person.getId());
 				}
 			}else {//教师登录
 				if(teacherService.login(person.getId(), person.getPassWord())) {
 					//密码正确
 					mv=new ModelAndView("forward:mainMenu/teacher/myCourse/"+person.getId());
+					logger.info("教师登陆成功：工号"+person.getId());
 				}else{
 					//密码错误
 					mv=new ModelAndView("login");
 					mv.addObject("person", person);
 					mv.addObject("error", "用户名或密码错误");
+					logger.info("教师登陆失败：工号"+person.getId());
 				}
 			}
 			return mv;
@@ -143,11 +154,11 @@ public class CentralController {
 			BindingResult result, 
 			@PathVariable("type") String type) {
 		ModelAndView mv;
-		System.out.print(person);
+		logger.info("更改个人信息:"+person);
 		if(person.getGender()!=null&&!person.getGender().equals("")) {
 			if(!person.getGender().equals("男")&&!person.getGender().equals("女")) {
 				//性别格式错误
-				System.out.println("性别出错");
+				logger.info("更改失败，性别出错");
 				mv=new ModelAndView("myInfo");
 				mv.addObject("info", person);
 				mv.addObject("error", "性别只能填男/女");
@@ -156,8 +167,7 @@ public class CentralController {
 		}
 		//后端校验
 		if(result.hasErrors()) {
-			System.out.print(result.getFieldError());
-			System.out.println("校验失败");
+			logger.info("更改信息失败，"+result.getFieldError());
 			mv=new ModelAndView("myInfo");
 			mv.addObject("info", person);
 			mv.addObject("error","密码应在6-18位之间");
