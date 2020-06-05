@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,10 @@ public class AutomaticCorrectionImp implements AutomaticCorrection,Runnable{
 	@Autowired
 	private QuestionService questionService;
 	/**
+	 * 日志
+	 */
+	private static Logger logger = Logger.getLogger(AutomaticCorrectionImp.class); 
+	/**
 	 * 初始化
 	 */
 	public AutomaticCorrectionImp() {
@@ -43,7 +49,7 @@ public class AutomaticCorrectionImp implements AutomaticCorrection,Runnable{
 	@Override
 	public void correct(String questionId,String studentId) {
 		waitList.add(questionId+" "+studentId);
-		System.out.println("作业号："+questionId+" "+studentId+"进入等待自动批改等待队列");
+		logger.info("作业号：("+questionId+" "+studentId+")进入等待自动批改等待队列");
 	}
 	/**
 	 * 实现接口方法
@@ -51,14 +57,14 @@ public class AutomaticCorrectionImp implements AutomaticCorrection,Runnable{
 	@Override
 	public void correct(String questionId) {
 		waitList.add(questionId);
-		System.out.println("作业号："+questionId+"进入等待自动批改等待队列");
+		logger.info("问题号：("+questionId+")进入等待自动批改等待队列");
 	}
 	/**
 	 * 不断从待执行队列中拿出作业号，交由线程池执行
 	 */
 	@Override
 	public void run() {
-		System.out.println((homeworkService!=null&&questionService!=null)?"service正常工作":"service不正常");
+		logger.info((homeworkService!=null&&questionService!=null)?"service正常工作":"service不正常");
 		while(true) {
 			if(waitList.isEmpty()) {
 				Thread.yield();
@@ -107,7 +113,7 @@ public class AutomaticCorrectionImp implements AutomaticCorrection,Runnable{
 		}
 		public void run() {
 			if(homeworks==null&&homework==null) {
-				System.out.println("此问题还没有作业提交");
+				logger.info("问题号为:"+question.getQuestionId()+",没有作业提交");
 				return;
 			}
 			if(homeworks!=null) {
@@ -115,13 +121,12 @@ public class AutomaticCorrectionImp implements AutomaticCorrection,Runnable{
 					correct(h1,question);
 				//放回数据库
 				homeworkService.updateScore(homeworks);
-				System.out.println("成功写回数据库");
+				logger.info("问题号为:"+question.getQuestionId()+"下的所有作业批改成功，并成功写回数据库");
 			}else {
 				correct(homework,question);
 				homeworkService.updateScore(""+homework.getQuestionId(),
 						homework.getStudentId(), ""+homework.getScore());
-				System.out.println(homework);
-				System.out.println("作业成绩成功写回数据库");
+				logger.info("作业号为:("+homework.getStudentId()+","+homework.getQuestionId()+")批改成功，并写回数据库");
 			}
 			
 		}

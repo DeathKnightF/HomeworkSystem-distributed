@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.log4j.Logger;
 //import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,10 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 	@Autowired
 	private HomeworkService homeworkService;
 	/**
+	 * 日志
+	 */
+	private Logger logger=Logger.getLogger(DuplicateCheckingImp.class);
+	/**
 	 * 初始化
 	 */
 	public DuplicateCheckingImp() {
@@ -50,14 +55,14 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 	@Override
 	public void check(Integer id) {
 		waitList.add(id);
-		System.out.println("问题号："+id+"进入等待查重等待队列");
+		logger.info("问题号："+id+"进入等待查重等待队列");
 	}
 	/**
 	 * 不断从待执行队列中拿出问题号，交由线程池执行
 	 */
 	@Override
 	public void run() {
-		System.out.println(homeworkService!=null?"service正常运行":"service不正常");
+		logger.info(homeworkService!=null?"service正常运行":"service不正常");
 		while(true) {
 			if(waitList.isEmpty()) {
 				Thread.yield();
@@ -67,6 +72,9 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 			Integer questionId = waitList.poll();
 			//从数据库中拿出这个问题下所有作业
 			List<Homework> homeworks = homeworkService.selectByQuestionId(""+questionId);
+			if(homeworks.isEmpty()) {
+				logger.info("问题号为："+questionId+",该问题还没有作业提交，暂不进行查重处理");
+			}
 			//交由线程池执行
 			threadPool.execute(new Task(homeworks));
 		}
@@ -83,10 +91,9 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 		}
 		
 		public void run() {
-			if(homeworks.isEmpty()) {
-				System.out.println("此问题还没有作业提交");
-				return;
-			}
+			//重置
+			for(Homework h:homeworks)
+				h.setRepeatability(0);
 			for(Homework h1:homeworks)
 				for(Homework h2:homeworks)
 					if(h1.getStudentId().equals(h2.getStudentId()))//跳过同一个学生的作业
@@ -95,7 +102,7 @@ public class DuplicateCheckingImp implements DuplicateChecking,Runnable{
 						check(h1,h2);
 			//放回数据库
 			homeworkService.updateRepeatability(homeworks);
-			System.out.println("重复度成功写回数据库");
+			logger.info("更新问题号为"+homeworks.get(0).getQuestionId()+"下作业的重复度，成功写回数据库");
 		}
 		/**
 		 * 查重
